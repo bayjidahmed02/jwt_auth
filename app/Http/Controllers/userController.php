@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\JWTtoken;
 use App\Models\User;
 use App\Mail\OTPmail;
 use Exception;
@@ -42,5 +43,18 @@ class userController extends Controller
         $email = $request->input('email');
         $otp = $request->input('otp');
         $user = User::where('email', $email)->where('otp', $otp)->first();
+        if ($user) {
+            User::where('email', $email)->where('otp', $otp)->update(['otp' => '0']);
+            $token = JWTtoken::createToken($user->email, $user->id);
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Login Success'
+            ])->cookie('token', $token, 60 * 24 * 30);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'cannot find'
+            ]);
+        }
     }
 }
