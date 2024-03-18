@@ -18,7 +18,7 @@ class JWTtoken
             'userEmail' => $userEmail,
             'userId' => $userId
         ];
-        return JWT::encode($key, $payload, 'HS256');
+        return JWT::encode($payload, $key, 'HS256');
     }
     public static function verifyToken($token)
     {

@@ -19,7 +19,7 @@ class CustomAuthMiddleware
         $token = $request->cookie('token');
         $result = JWTtoken::verifyToken($token);
         if ($result == 'unauth') {
-            return '/login';
+            return  redirect('/login');
         } else {
             $request->headers->set('email', $result->userEmail);
             $request->headers->set('id', $result->userId);
