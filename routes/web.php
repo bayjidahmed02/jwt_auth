@@ -14,3 +14,6 @@ Route::post('/verify-login', [userController::class, 'verifyLogin']);
 Route::middleware([CustomAuthMiddleware::class])->group(function () {
     Route::get('/logout', [userController::class, 'logout']);
 });
+
+
+Route::view('/', 'layouts.app');
