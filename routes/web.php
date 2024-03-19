@@ -16,4 +16,6 @@ Route::middleware([CustomAuthMiddleware::class])->group(function () {
 });
 
 
-Route::view('/', 'layouts.app');
+Route::view('/', 'pages.home-page');
+Route::view('/login', 'pages.login-page')->name('login');
+Route::view('/verify-email', 'pages.email-verify-page');
