@@ -43,9 +43,11 @@ class userController extends Controller
         $email = $request->input('email');
         $otp = $request->input('otp');
         $user = User::where('email', $email)->where('otp', $otp)->first();
+        // dd($user);
         if ($user) {
             User::where('email', $email)->where('otp', $otp)->update(['otp' => '0']);
             $token = JWTtoken::createToken($user->email, $user->id);
+            // dd($token);
             return response()->json([
                 'status' => 'success',
                 'msg' => 'Login Success'
@@ -59,6 +61,6 @@ class userController extends Controller
     }
     public function logout()
     {
-        return redirect('/login')->cookie('token', null, -1);
+        return redirect()->back()->cookie('token', null, -1);
     }
 }

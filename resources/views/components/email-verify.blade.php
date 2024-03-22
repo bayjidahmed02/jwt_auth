@@ -7,19 +7,40 @@
                         <div class="heading_s1">
                             <h3>Verify Email</h3>
                         </div>
-                        <form method="post">
-                            <div class="form-group mb-3">
-                                <input type="text" required="" class="form-control" name="email"
-                                    placeholder="OTP code">
-                            </div>
-                            <div class="form-group mb-3">
-                                <button type="submit" class="btn btn-fill-out btn-block" name="login">Next</button>
-                            </div>
-                        </form>
-
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="otp" name="otp"
+                                placeholder="OTP code">
+                            <button onclick="verifyOTP()" type="submit" class="btn btn-fill-out btn-block mt-3"
+                                name="login">Verify</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    async function verifyOTP() {
+        let email = sessionStorage.getItem('email')
+        console.log(email);
+        let otp = document.getElementById('otp').value;
+        if (otp.length !== 4) {
+            errorToast('OTP field is required')
+        } else {
+            showLoader();
+            let res = await axios.post('/verify-email', {
+                email: email,
+                otp: otp
+            });
+            console.log(res);
+            hideLoader()
+            if (res.data.status === 'success' && res.status === 200) {
+                successToast(res.data.msg);
+                setTimeout(() => {
+                    window.location.href = '/'
+                }, 1000);
+            }
+        }
+    }
+</script>

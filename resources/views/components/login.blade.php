@@ -7,19 +7,38 @@
                         <div class="heading_s1">
                             <h3>Login</h3>
                         </div>
-                        <form method="post">
-                            <div class="form-group mb-3">
-                                <input type="text" required="" class="form-control" name="email"
-                                    placeholder="Your Email">
-                            </div>
-                            <div class="form-group mb-3">
-                                <button type="submit" class="btn btn-fill-out btn-block" name="login">Next</button>
-                            </div>
-                        </form>
-
+                        <div class="mb-3">
+                            <input type="email" class="form-control" id="email" name="email"
+                                placeholder="Your Email">
+                            <button onclick="login()" type="submit" class="btn btn-fill-out btn-block mt-3"
+                                name="login">Next</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    async function login() {
+        let email = document.getElementById('email').value;
+        if (email.length === 0) {
+            errorToast('Email field is required')
+        } else {
+            showLoader();
+            let res = await axios.post('/login', {
+                email: email
+            });
+            console.log(res);
+            hideLoader()
+            if (res.data.status === 'success' && res.status === 200) {
+                successToast(res.data.msg);
+                sessionStorage.setItem('email', email)
+                setTimeout(() => {
+                    window.location.href = '/verify-email'
+                }, 1000);
+            }
+        }
+    }
+</script>
