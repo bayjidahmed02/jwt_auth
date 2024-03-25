@@ -43,11 +43,12 @@ class userController extends Controller
         $email = $request->input('email');
         $otp = $request->input('otp');
         $user = User::where('email', $email)->where('otp', $otp)->first();
-        // dd($user);
+
         if ($user) {
-            User::where('email', $email)->where('otp', $otp)->update(['otp' => '0']);
-            $token = JWTtoken::createToken($user->email, $user->id);
-            // dd($token);
+            // User::where('email', $email)->where('otp', $otp)->update(['otp' => '0']);
+            User::where('email', $email)->where('otp', $otp)->update(['otp' => $otp]);
+            $token = JWTtoken::createToken($user->email, $user->id, $user->is_admin);
+
             return response()->json([
                 'status' => 'success',
                 'msg' => 'Login Success'

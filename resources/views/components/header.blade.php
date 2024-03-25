@@ -33,9 +33,13 @@
                             </li>
                             <li><a href="wishlist.html"><i class="ti-heart"></i><span>Wishlist</span></a></li>
                             @if (Cookie::get('token') !== null)
-                                <li><a href="/logout"><i class="ti-user"></i><span>Logout</span></a></li>
+                                <li><a href="/logout" class="btn btn-sm btn-danger"><i
+                                            class="ti-user"></i><span>Logout</span></a></li>
                             @else
-                                <li><a href="{{ route('login') }}"><i class="ti-user"></i><span>Login</span></a></li>
+                                <li>
+                                    <a href="{{ route('login') }}" class="btn btn-sm btn-danger"><i
+                                            class="ti-user"></i><span>Login</span></a>
+                                </li>
                             @endif
                         </ul>
                     </div>

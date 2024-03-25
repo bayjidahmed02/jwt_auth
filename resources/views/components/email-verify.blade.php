@@ -34,7 +34,7 @@
                 otp: otp
             });
             console.log(res);
-            hideLoader()
+            hideLoader();
             if (res.data.status === 'success' && res.status === 200) {
                 successToast(res.data.msg);
                 setTimeout(() => {
