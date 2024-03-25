@@ -30,7 +30,8 @@ class CustomAuthMiddleware
             $request->headers->set('is_admin', $result->is_admin);
 
             if ($result->is_admin) {
-                return redirect('/admin');
+                // return redirect('/admin');
+                return redirect()->route('admin');
             } else {
                 return $next($request);
             }

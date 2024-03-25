@@ -26,4 +26,4 @@ Route::view('/', 'pages.home-page');
 
 Route::get('/admin', function () {
     return view('pages.admin.dashboard');
-})->middleware([CustomAuthMiddleware::class]);
+})->middleware([CustomAuthMiddleware::class])->name('admin');
